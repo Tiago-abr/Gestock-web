@@ -26,10 +26,21 @@ public class CustomerService {
         return this.mapper.toResponseDTOList(customers);
     }
     
+    @Transactional(readOnly = true)
+    public CustomerResponseDTO findById(Long id){
+        if(!this.repository.existsById(id)){
+            throw new RuntimeException("Cliente não encontrado.");
+        }
+        
+        return this.mapper.toResponseDTO(this.repository.findById(id).get());
+    }
+    
     @Transactional
     public CustomerResponseDTO create(CustomerRequestDTO request){
         Customer customer = this.mapper.toEntity(request);
         this.repository.save(customer);
         return this.mapper.toResponseDTO(customer);
     }
+    
+    
 }
