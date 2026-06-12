@@ -1,13 +1,18 @@
 package com.tiago.gestock.controller;
 
+import com.tiago.gestock.model.dto.CustomerRequestDTO;
 import com.tiago.gestock.model.dto.CustomerResponseDTO;
 import com.tiago.gestock.service.CustomerService;
+import java.net.URI;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/customers")
@@ -19,5 +24,15 @@ public class CustomerController {
     @GetMapping
     public ResponseEntity<List<CustomerResponseDTO>> findAll(){
         return ResponseEntity.ok(this.service.findAll());
+    }
+    
+    @PostMapping
+    public ResponseEntity<CustomerResponseDTO> create(@RequestBody CustomerRequestDTO request){
+        CustomerResponseDTO response = this.service.create(request);
+        
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(response.id()).toUri();
+        
+        return ResponseEntity.created(uri).body(response);
     }
 }
