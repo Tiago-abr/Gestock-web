@@ -42,5 +42,27 @@ public class CustomerService {
         return this.mapper.toResponseDTO(customer);
     }
     
+    @Transactional
+    public CustomerResponseDTO update(Long id ,CustomerRequestDTO request){
+        Customer customer = this.repository.findById(id).orElseThrow(() -> {
+            throw new RuntimeException("Cliente não encontrado.");
+        });
+        
+        this.mapper.updateEntityFromDTO(request, customer);
+        
+        this.repository.save(customer);
+        
+        return this.mapper.toResponseDTO(customer);
+    }
+    
+    @Transactional
+    public void delete(Long id){
+        if(!this.repository.existsById(id)){
+            throw new RuntimeException("Cliente não encontrado.");
+        }
+        
+        this.repository.deleteById(id);
+    }
+    
     
 }
