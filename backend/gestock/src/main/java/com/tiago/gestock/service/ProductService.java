@@ -52,4 +52,13 @@ public class ProductService {
         
         return this.mapper.toResponseDTO(product);
     }
+    
+    @Transactional
+    public void delete(Long id){
+        if(!this.repository.existsById(id)){
+            throw new RuntimeException("Produto não encontrado.");
+        }
+        
+        this.repository.deleteById(id);
+    }
 }
