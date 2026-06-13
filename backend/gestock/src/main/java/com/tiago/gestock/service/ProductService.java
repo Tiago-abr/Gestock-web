@@ -19,4 +19,12 @@ public class ProductService {
     public List<ProductResponseDTO> findAll(){
         return mapper.toResponseDTOList(this.repository.findAll());
     }
+    
+    public ProductResponseDTO findById(Long id){
+        return mapper.toResponseDTO(
+                this.repository.findById(id).orElseThrow(() -> {
+                    throw new RuntimeException("Produto não encontrado.");
+                })
+        );
+    }
 }
