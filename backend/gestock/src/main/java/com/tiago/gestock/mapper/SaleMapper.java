@@ -49,4 +49,17 @@ public interface SaleMapper {
     SaleItemResponseDTO toItemResponseDTO(SaleItem item);
     
     List<SaleItemResponseDTO> toItemResponseDTOList(List<SaleItem> items);
+    
+    @Mapping(target = "customer", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    void updateEntityFromDTO(SaleRequestDTO dto, @MappingTarget Sale entity);
+    
+    @AfterMapping
+    default void linkUpdate(SaleRequestDTO dto, @MappingTarget Sale sale){
+        if (sale.getItems() != null) {
+            var temporaryItems = new ArrayList<>(sale.getItems());
+            sale.getItems().clear();
+            temporaryItems.forEach(sale::addItem);
+        }
+    }
 }
