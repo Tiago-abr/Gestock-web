@@ -116,4 +116,13 @@ public class SaleService {
         
         return this.mapper.toResponseDTO(sale);
    }
+   
+   @Transactional
+   public void delete(Long id){
+       Sale sale = this.repository.findById(id).orElseThrow(() -> {
+           throw new RuntimeException("Venda não encontrada.");
+       });
+       
+       this.repository.delete(sale);
+   }
 }
