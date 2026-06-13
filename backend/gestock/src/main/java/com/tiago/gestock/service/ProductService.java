@@ -39,4 +39,17 @@ public class ProductService {
         product = this.repository.save(product);
         return this.mapper.toResponseDTO(product);
     }
+    
+    @Transactional
+    public ProductResponseDTO update(Long id, ProductRequestDTO request){
+        Product product = this.repository.findById(id).orElseThrow(() -> {
+            throw new RuntimeException("Produto não encontrado.");
+        });
+        
+        this.mapper.updateEntityFromDTO(request, product);
+        
+        this.repository.save(product);
+        
+        return this.mapper.toResponseDTO(product);
+    }
 }
