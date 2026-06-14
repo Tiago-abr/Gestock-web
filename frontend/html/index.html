@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestock - Gestão de Estoque e Vendas</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo" id="nav-logo">
+                Gestock<span>.</span>
+            </div>
+            <nav class="navbar">
+                <a href="#" class="nav-link active" id="link-home">Início</a>
+                <a href="#" class="nav-link" id="link-sobre">Sobre</a>
+
+                <a href="#" class="nav-link" id="link-dashboard" style="display: none;">Produtos</a>
+                <a href="#" class="nav-link" id="link-customers-nav" style="display: none;">Clientes</a>
+                <a href="#" class="nav-link" id="link-sales-nav" style="display: none;">Vendas</a>
+                <a href="#" class="nav-btn btn-logout" id="link-logout" style="display: none;">Sair</a>
+
+                <a href="#" class="nav-btn btn-login" id="link-login">Login</a>
+                <a href="#" class="nav-btn btn-register" id="link-register">Registrar</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <section id="section-home" class="page-section active">
+            <div class="hero">
+                <div class="container hero-container">
+                    <div class="hero-text">
+                        <h1>Controle seu estoque e impulsione suas vendas em um só lugar.</h1>
+                        <p>Uma plataforma inteligente, rápida e intuitiva para gerenciar produtos, acompanhar saídas e
+                            otimizar os resultados do seu negócio.</p>
+                        <div class="hero-actions"><button class="btn btn-primary" id="hero-start">Começar
+                                Agora</button><button class="btn btn-secondary" id="hero-learn-more">Saber Mais</button>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="mockup-dashboard">
+                            <div class="mockup-header"></div>
+                            <div class="mockup-body">
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-sobre" class="page-section">
+            <div class="container sobre-container">
+                <h2>Sobre o Gestock</h2>
+                <p class="lead">Nascemos com a missão de simplificar a rotina de pequenos e médios empreendedores.</p>
+            </div>
+        </section>
+
+        <section id="section-login" class="page-section">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Acesse sua conta</h2>
+                    <form id="form-login">
+                        <div class="form-group"><label>E-mail</label><input type="email" id="login-email" required>
+                        </div>
+                        <div class="form-group"><label>Senha</label><input type="password" id="login-password" required>
+                        </div><button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-register" class="page-section">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Crie sua conta</h2>
+                    <form id="form-register">
+                        <div class="form-group"><label>Nome</label><input type="text" id="register-name" required></div>
+                        <div class="form-group"><label>E-mail</label><input type="email" id="register-email" required>
+                        </div>
+                        <div class="form-group"><label>Senha</label><input type="password" id="register-password"
+                                required></div><button type="submit" class="btn btn-primary btn-block">Criar
+                            Conta</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-products" class="page-section">
+            <div class="container dashboard-container">
+                <div class="dashboard-header">
+                    <h2>Painel de Produtos</h2>
+                    <p>Cadastre novos itens, edite informações ou remova produtos do estoque.</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="product-form-card">
+                        <h3 id="product-form-title">Novo Produto</h3>
+                        <form id="form-product">
+                            <input type="hidden" id="product-id-editing" value="">
+
+                            <div class="form-group">
+                                <label for="product-name">Nome do Produto</label>
+                                <input type="text" id="product-name" placeholder="Ex: Laptop" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-category">Categoria</label>
+                                <input type="text" id="product-category" placeholder="Ex: Eletrônicos" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-price">Preço Unitário (R$)</label>
+                                <input type="number" id="product-price" step="0.01" placeholder="Ex: 6000.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-stock">Quantidade em Estoque</label>
+                                <input type="number" id="product-stock" placeholder="Ex: 25" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" id="btn-product-submit">Cadastrar
+                                Produto</button>
+                            <button type="button" class="btn btn-secondary btn-block" id="btn-product-cancel"
+                                style="display: none; margin-top: 0.5rem;">Cancelar Edição</button>
+                        </form>
+                    </div>
+
+                    <div class="product-list-card">
+                        <h3>Itens em Estoque</h3>
+                        <div class="table-responsive">
+                            <table class="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Categoria</th>
+                                        <th>Preço</th>
+                                        <th>Estoque</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="product-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-customers" class="page-section">
+            <div class="container dashboard-container">
+                <div class="dashboard-header">
+                    <h2>Painel de Clientes</h2>
+                    <p>Gerencie seus clientes, atualize endereços e contatos ou remova registros.</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="product-form-card">
+                        <h3 id="customer-form-title">Novo Cliente</h3>
+                        <form id="form-customer">
+                            <input type="hidden" id="customer-id-editing" value="">
+
+                            <div class="form-group">
+                                <label for="customer-name">Nome Completo</label>
+                                <input type="text" id="customer-name" placeholder="Ex: Jorge Oliveira" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-document">Documento (CPF/CNPJ)</label>
+                                <input type="text" id="customer-document" placeholder="Ex: 291.076.270-09" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-phone">Telefone</label>
+                                <input type="text" id="customer-phone" placeholder="Ex: (11) 99039-4850" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-address">Endereço Residencial</label>
+                                <input type="text" id="customer-address" placeholder="Ex: Avenida Chal Portuario"
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" id="btn-customer-submit">Cadastrar
+                                Cliente</button>
+                            <button type="button" class="btn btn-secondary btn-block" id="btn-customer-cancel"
+                                style="display: none; margin-top: 0.5rem;">Cancelar Edição</button>
+                        </form>
+                    </div>
+
+                    <div class="product-list-card">
+                        <h3>Clientes Registrados</h3>
+                        <div class="table-responsive">
+                            <table class="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome do Cliente</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customer-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-sales" class="page-section">
+            <div class="container dashboard-container">
+                <div class="dashboard-header">
+                    <h2>Frente de Vendas (PDV)</h2>
+                    <p>Abra pedidos, adicione produtos ao carrinho e registre novas saídas do sistema.</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="product-form-card">
+                        <h3>Lançar Venda</h3>
+                        <form id="form-sale-setup">
+                            <input type="hidden" id="sale-id-editing" value="">
+
+                            <div class="form-group">
+                                <label for="sale-customer-id">ID do Cliente</label>
+                                <input type="number" id="sale-customer-id" placeholder="Ex: 3" required>
+                            </div>
+
+                            <div class="form-row-group"
+                                style="border-top: 1px dashed var(--border-color); padding-top: 1rem; margin-top: 1rem;">
+                                <h4>Adicionar Item ao Carrinho</h4>
+                                <div class="form-group">
+                                    <label for="sale-product-id">ID do Produto</label>
+                                    <input type="number" id="sale-product-id" placeholder="Ex: 1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sale-quantity">Quantidade</label>
+                                    <input type="number" id="sale-quantity" placeholder="Ex: 2" min="1">
+                                </div>
+                                <button type="button" class="btn btn-secondary btn-block" id="btn-add-item">Adicionar
+                                    Item</button>
+                            </div>
+                        </form>
+
+                        <div class="cart-preview" style="margin-top: 1.5rem;">
+                            <h5>Itens Selecionados:</h5>
+                            <ul id="cart-list"
+                                style="margin: 0.5rem 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--gray-color);">
+                                <li id="cart-empty-msg">Nenhum item adicionado ainda</li>
+                            </ul>
+                            <button type="button" class="btn btn-primary btn-block" id="btn-submit-sale"
+                                disabled>Finalizar Venda</button>
+                        </div>
+                    </div>
+
+                    <div class="product-list-card">
+                        <h3>Histórico de Vendas (Log)</h3>
+                        <div class="table-responsive">
+                            <table class="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID Venda</th>
+                                        <th>Cliente</th>
+                                        <th>Operador</th>
+                                        <th>Total</th>
+                                        <th>Data</th>
+                                        <th>Produtos Vendidos</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sales-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 Gestock. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/src/js/script.js"></script>
+</body>
+
+</html>
